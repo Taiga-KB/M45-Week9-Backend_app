@@ -9,4 +9,23 @@ node_modules
 
 4. npm i express dotenv
 
-5. create repo on GitHub, copy+paste commands
+5. create repo on GitHub, copy+paste commands and push initial setup
+
+6. server:
+require("dotenv").config();
+const express = require("express");
+const port = process.env.PORT || 5001;
+
+const app = express();
+app.use(express.json());
+
+7. npm i nodemon
+    "start": "nodemon src/server.js" in json underneath script/test
+    npm run start
+    will run scripts in json
+
+8. 
+
+9. 
+
+10. 
