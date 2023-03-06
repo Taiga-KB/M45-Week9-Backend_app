@@ -24,8 +24,11 @@ app.use(express.json());
     npm run start
     will run scripts in json
 
-8. 
+8. Install - npm i sequelize mysql2 
 
 9. 
 
 10. 
+
+Switch and make new branch
+git switch -c branchname
