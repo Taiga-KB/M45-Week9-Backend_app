@@ -1,0 +1,12 @@
+SERVER STARTUP STEPS
+1. npm init -y
+
+2. gitignore with: 
+.env
+node_modules
+
+3. src folder with server.js
+
+4. npm i express dotenv
+
+5. create repo on GitHub, copy+paste commands
