@@ -22,10 +22,15 @@ app.use(express.json());
 7. npm i nodemon
     "start": "nodemon src/server.js" in json underneath script/test
     npm run start
-    will run scripts in json
+    Will run scripts in json
 
-8. 
+8. Install - npm i sequelize mysql2 
+    Install - npm i bcrypt for hashing
 
 9. 
 
 10. 
+
+Switch and make new branch
+git switch -c branchname
+
