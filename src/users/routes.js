@@ -7,5 +7,6 @@ const {registerUser, login} = require("./controllers");
 
 userRouter.post("/users/register", hashPass, registerUser);
 userRouter.post("/users/login", comparePass, login);
+// The post request travels to server, to the URL, performs the functions in set order
 
-module.exports = userRouter
+module.exports = userRouter;
