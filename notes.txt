@@ -1,17 +1,22 @@
 SERVER STARTUP STEPS
 1. npm init -y
+npm i dotenv express nodemon bcrypt sequelize mysql2
+npm i nodemon
+    "start": "nodemon src/server.js" in json underneath script/test
+    npm run start
+    Will run scripts in json
 
-2. gitignore with: 
+2. .gitignore with: 
 .env
 node_modules
 
 3. src folder with server.js
+require dotenv config
+require express
 
-4. npm i express dotenv
+4. create repo on GitHub, copy+paste commands and push initial setup
 
-5. create repo on GitHub, copy+paste commands and push initial setup
-
-6. server:
+5. server:
 require("dotenv").config();
 const express = require("express");
 const port = process.env.PORT || 5001;
@@ -19,13 +24,12 @@ const port = process.env.PORT || 5001;
 const app = express();
 app.use(express.json());
 
-7. npm i nodemon
-    "start": "nodemon src/server.js" in json underneath script/test
-    npm run start
-    Will run scripts in json
+6. 
 
-8. Install - npm i sequelize mysql2 
+7. Install - npm i sequelize mysql2 
     Install - npm i bcrypt for hashing
+
+8. 
 
 9. 
 

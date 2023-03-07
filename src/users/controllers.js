@@ -6,10 +6,10 @@ const User = require("./model");
 const registerUser = async (req, res) => {
     try {
         const user = await User.create(req.body)
-        console.log(user)
+        console.log(user);
         res.status(201).json ({
             message: "Success",
-            user: {username: req.body.username, email: req.body.email},
+            user: {username: req.body.username, email: req.body.email}
         });
     } catch (error) {
         res.status(501).json({errorMsg: error.message, error: error})

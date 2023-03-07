@@ -18,16 +18,18 @@ const hashPass = async (req, res, next) => {
 };
 
 // =====4.Find specific user and compare passwords to match=====
+// object.compare returns true or false
+// Perhaps add more error handling with if statements?
 const comparePass = async (req, res, next) => {
     try {
-        req.user = await User.findOne({where: {username: req.body.username}})
-        console.log(req.user)
-        const matchPass = await bcrypt.compare(req.body.password, req.user.password)
+        req.user = await User.findOne({where: {username: req.body.username}});
+        console.log(req.user);
+        const matchPass = await bcrypt.compare(req.body.password, req.user.password);
         if (!matchPass) {
-            const error = new Error("Password does not match")
+            const error = new Error("Password does not match");
             res.status(500).json({errorMsg: error.message, error: error})
         };
-        next()
+        next();
     } catch (error) {
         res.status(501).json({errorMsg: error.message, error: error})
     }
