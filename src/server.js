@@ -30,3 +30,4 @@ app.listen(port, () => {
 // Data and hash arguments required: Check functions, trying to find something specified
 
 // 200 is the status code for a successful get request
+// 401 Not authorised

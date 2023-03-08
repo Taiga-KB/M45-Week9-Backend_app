@@ -3,7 +3,7 @@ const jwt = require("jsonwebtoken");
 const salt = process.env.SALT_ROUNDS;
 const User = require("../users/model");
 // Security risk: Might be known that a password has been hashed 10 times and can undo it
-// More rounds of hashing, more security
+// More rounds of hashing, more security but also takes more time
 
 // =====2.Function to obscure desired password onto DB=====
 const hashPass = async (req, res, next) => {

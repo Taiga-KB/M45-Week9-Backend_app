@@ -19,6 +19,7 @@ const registerUser = async (req, res) => {
 
 // =====3.Login with password=====
 // If password match, respond with user details. Pass omitted
+// Token is assigned to ID
 const login = async (req, res) => {
     try {
         const token = await jwt.sign({id: req.user.id}, process.env.SECRET);
