@@ -19,7 +19,7 @@ const hashPass = async (req, res, next) => {
 };
 
 // =====4.Find specific user and compare passwords to match=====
-// object.compare returns true or false
+// object.compare returns true or false (kinda)
 // Perhaps add more error handling with if statements?
 const comparePass = async (req, res, next) => {
     try {
