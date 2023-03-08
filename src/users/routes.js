@@ -1,7 +1,6 @@
 const {Router} = require("express");
 const userRouter = Router();
 
-
 const {hashPass, comparePass, tokenCheck} = require("../middleware/index");
 const {registerUser, login, getAllUsers} = require("./controllers");
 // Object Destructuring?
