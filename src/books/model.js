@@ -5,7 +5,6 @@ const Book = connection.define("Book", {
   title: {
     type: DataTypes.STRING,
     allowNull: false,
-    unique: true,
   },
   author: {
     type: DataTypes.STRING,
@@ -13,6 +12,8 @@ const Book = connection.define("Book", {
   genre: {
     type: DataTypes.STRING,
   },
-});
+},
+{indexes: [{unique: true, fields: ["title"]}]}
+);
 
 module.exports = Book;
