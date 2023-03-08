@@ -39,7 +39,6 @@ const login = async (req, res) => {
 // =====6.Get all users if authorised=====
 const getAllUsers = async (req, res) => {
     try {
-
         if(!req.authCheck) {
             const error = new Error("Not authorised");
             res.status(401).json({errorMsg: error.message, error:error});

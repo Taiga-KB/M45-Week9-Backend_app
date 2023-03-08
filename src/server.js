@@ -5,15 +5,19 @@ const port = process.env.PORT || 5001;
 // need to be specified
 const userRouter = require("./users/routes");
 const User = require("./users/model");
+const bookRouter = require("./books/routes");
+const Book = require("./books/model");
 
 const app = express();
 app.use(express.json());
 
 const syncTables = () => {
     User.sync({alter: true, force: false})
+    Book.sync({alter: true, force: false})
 };
 
 app.use(userRouter);
+app.use(bookRouter);
 
 app.get("/health", (req, res) => 
     res.status(200).json({message: "API is working"
@@ -31,3 +35,8 @@ app.listen(port, () => {
 
 // 200 is the status code for a successful get request
 // 401 Not authorised
+
+// TO-DO
+// Add: add a book model/controllers/routes to allow for the four CRUD operations
+// Use previous Sequelize repo as reference
+// Protect any routes that add/edit/delete data from the database
