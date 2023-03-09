@@ -1,5 +1,6 @@
 require("dotenv").config();
 const express = require("express");
+const cors = require("cors");
 const port = process.env.PORT || 5001;
 // PORT 80 is default for localhost, in routes for request 80 does not
 // need to be specified
@@ -11,6 +12,7 @@ const genreRouter = require("./genre/routes")
 const Genre = require("./genre/model");
 
 const app = express();
+app.use(cors());
 app.use(express.json());
 
 const syncTables = () => {
