@@ -3,9 +3,9 @@ const jwt = require("jsonwebtoken");
 const salt = process.env.SALT_ROUNDS;
 const User = require("../users/model");
 // Security risk: Might be known that a password has been hashed 10 times and can undo it
-// More rounds of hashing, more security but also takes more time
+// More rounds of hashing = more security but also takes more time
 
-// =====2.Function to obscure desired password onto DB=====
+// =====Function to obscure desired password onto DB=====
 const hashPass = async (req, res, next) => {
     try {
         const hashedPass = await bcrypt.hash(req.body.password, parseInt(salt));
@@ -18,7 +18,7 @@ const hashPass = async (req, res, next) => {
     }
 };
 
-// =====4.Find specific user and compare passwords to match=====
+// =====Find specific user and compare passwords to match=====
 // object.compare returns true or false (kinda)
 // Perhaps add more error handling with if statements?
 const comparePass = async (req, res, next) => {
@@ -37,10 +37,14 @@ const comparePass = async (req, res, next) => {
     }
 };
 
-// =====5.Checks ID token=====
+// =====Checks ID token=====
 const tokenCheck = async (req, res, next) => {
+    console.log(req.header("Authorization"))
     try {
-        const token = req.header("Authorization");
+        if (!req.header("Authorization")) {
+            throw new Error("No token passed");
+        }
+        const token = req.header("Authorization").replace("Bearer ", "");
         const decToken = await jwt.verify(token, process.env.SECRET);
         const user = await User.findOne({where: {id: decToken.id}});
         

@@ -16,12 +16,13 @@ app.use(cors());
 app.use(express.json());
 
 const syncTables = () => {
+    // Relationships first, then sync in order: Genre > Book > etc
     Genre.hasMany(Book);
     Book.belongsTo(Genre);
 
     User.sync({alter: true, force: false})
-    Book.sync({alter: true, force: false})
     Genre.sync({alter: true, force: false})
+    Book.sync({alter: true, force: false})
 };
 
 app.use(userRouter);
@@ -46,8 +47,4 @@ app.listen(port, () => {
 // 401 Not authorised
 
 // TO-DO
-// Add: add a book model/controllers/routes to allow for the four CRUD operations
-// Use previous Sequelize repo as reference
-// Protect any routes that add/edit/delete data from the database
-
-// Adding genre routes for fun I guess
+// Add: UPDATE and DELETE routes to Users

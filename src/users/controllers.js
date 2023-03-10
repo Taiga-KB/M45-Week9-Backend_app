@@ -2,7 +2,7 @@ const bcrypt = require("bcrypt");
 const User = require("./model");
 const jwt = require("jsonwebtoken");
 
-// =====1.Add/Post new user to DB=====
+// =====Add/Post new user to DB=====
 // Responds/console with user and email. Pass omitted
 const registerUser = async (req, res) => {
     try {
@@ -17,7 +17,7 @@ const registerUser = async (req, res) => {
     }
 };
 
-// =====3.Login with password=====
+// =====Login with password=====
 // If password match, respond with user details. Pass omitted
 // Token is assigned to ID
 const login = async (req, res) => {
@@ -32,7 +32,7 @@ const login = async (req, res) => {
             return;
         };
         const token = await jwt.sign({id: req.user.id}, process.env.SECRET);
-        console.log("token", token);
+        console.log("token:", token);
         res.status(201).json({
             message: "Success", 
             user: {
@@ -45,7 +45,7 @@ const login = async (req, res) => {
     }
 };
 
-// =====6.Get all users if authorised=====
+// =====Get all users if authorised=====
 const getAllUsers = async (req, res) => {
     try {
         if(!req.authCheck) {
@@ -63,8 +63,47 @@ const getAllUsers = async (req, res) => {
     }
 };
 
+// =====Update User information=====
+// Is there a way of adding if: user id === authCheck id?
+const updateUser = async (req, res) => {
+    try {
+        if(!req.authCheck) {
+            const error = new Error("Not authorised");
+            res.status(401).json({errorMsg: error.message, error:error});
+        };
+        const upUser = await User.update({[req.body.updateKey]: req.body.updateValue}, {
+            where: {
+                username: req.body.username
+            }
+        });
+        res.status(201).json({message: "Success", updateResult: upUser});
+    } catch (error) {
+        res.status(501).json({errorMsg: error.message, error: error});
+    }
+};
+
+// =====Delete user from DB=====
+const deleteUser = async (req, res) => {
+    try {
+        if(!req.authCheck) {
+            const error = new Error("Not authorised");
+            res.status(401).json({errorMsg: error.message, error:error});
+        };
+        const removeUser = await User.destroy({
+            where: {
+                username: req.params.username
+            }
+        });
+        res.status(201).json({message: "Success", result: removeUser});
+    } catch (error) {
+        res.status(501).json({errorMsg: error.message, error: error});
+    }
+};
+
 module.exports = {
     registerUser,
     login,
     getAllUsers,
+    updateUser,
+    deleteUser,
 };
