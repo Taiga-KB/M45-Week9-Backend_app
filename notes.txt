@@ -1,32 +1,42 @@
-SERVER STARTUP STEPS
-1. npm init -y
-npm i dotenv express nodemon bcrypt sequelize mysql2
-npm i jsonwebtoken
-npm i nodemon
-    "start": "nodemon src/server.js" in json underneath script/test
-    npm run start
-    Will run scripts in json
+COPY + PASTES for User requests
+==========//==========//==========
 
-2. .gitignore with: 
-.env
-node_modules
+URL for POST new user to DB:
+http://localhost/users/register
 
-3. src folder with server.js
-require dotenv config
-require express
+Body:
+{
+  "username": "",
+  "email": "@email.com",
+  "password": "password"
+}
 
-4. create repo on GitHub, copy+paste commands and push initial setup
+URL for POST Login:
+http://localhost/users/login
 
-5. server:
-require("dotenv").config();
-const express = require("express");
-const port = process.env.PORT || 5001;
+Body:
+{
+  "username": "",
+  "email": "@email.com",
+  "password": "password"
+}
 
-const app = express();
-app.use(express.json());
+URL for GET all users:
+http://localhost/users/getallusers
 
-6. 
+No body
 
-Switch and make new branch
-git switch -c branchname
+URL for PUT user info:
+http://localhost/users/updateinfo
 
+Body:
+{
+    "username": "",
+    "updateKey": "email",
+    "updateValue": "@email.com"
+}
+
+URL for DELETE user from DB:
+http://localhost/users/deleteuser/:username
+
+No body

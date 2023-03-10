@@ -1,5 +1,6 @@
 require("dotenv").config();
 const express = require("express");
+const cors = require("cors");
 const port = process.env.PORT || 5001;
 // PORT 80 is default for localhost, in routes for request 80 does not
 // need to be specified
@@ -11,15 +12,17 @@ const genreRouter = require("./genre/routes")
 const Genre = require("./genre/model");
 
 const app = express();
+app.use(cors());
 app.use(express.json());
 
 const syncTables = () => {
+    // Relationships first, then sync in order: Genre > Book > etc
     Genre.hasMany(Book);
     Book.belongsTo(Genre);
 
     User.sync({alter: true, force: false})
-    Book.sync({alter: true, force: false})
     Genre.sync({alter: true, force: false})
+    Book.sync({alter: true, force: false})
 };
 
 app.use(userRouter);
@@ -44,8 +47,4 @@ app.listen(port, () => {
 // 401 Not authorised
 
 // TO-DO
-// Add: add a book model/controllers/routes to allow for the four CRUD operations
-// Use previous Sequelize repo as reference
-// Protect any routes that add/edit/delete data from the database
-
-// Adding genre routes for fun I guess
+// Add: UPDATE and DELETE routes to Users
