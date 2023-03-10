@@ -29,6 +29,7 @@ const comparePass = async (req, res, next) => {
         if (!matchPass) {
             const error = new Error("Password does not match");
             res.status(500).json({errorMsg: error.message, error: error});
+            return;
         };
         next();
     } catch (error) {
@@ -42,6 +43,7 @@ const tokenCheck = async (req, res, next) => {
         const token = req.header("Authorization");
         const decToken = await jwt.verify(token, process.env.SECRET);
         const user = await User.findOne({where: {id: decToken.id}});
+        
         if (!user) {
             const error = new Error("User is not authorised")
             res.status(401).json({errorMsg: error.message, error: error});

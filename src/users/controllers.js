@@ -22,6 +22,15 @@ const registerUser = async (req, res) => {
 // Token is assigned to ID
 const login = async (req, res) => {
     try {
+        if(req.authCheck) {
+            res.status(201).json({
+                message: "Success",
+                user: {
+                    username: req.authCheck.username,
+                    email: req.authCheck.email}
+            });
+            return;
+        };
         const token = await jwt.sign({id: req.user.id}, process.env.SECRET);
         console.log("token", token);
         res.status(201).json({
