@@ -11,21 +11,29 @@ const Book = require("./books/model");
 const genreRouter = require("./genre/routes")
 const Genre = require("./genre/model");
 
+const dataRouter = require("./data/routes");
+const Data = require("./data/model");
+
 const app = express();
 app.use(cors());
 app.use(express.json());
 
 const syncTables = () => {
     // Relationships first, then sync in order: Genre > Book > etc
+    Book.belongsToMany(User, {through: "Data"});
+    User.belongsToMany(Book, {through: "Data"});
+
     Genre.hasMany(Book);
     Book.belongsTo(Genre);
 
-    User.sync({alter: true, force: false})
-    Genre.sync({alter: true, force: false})
     Book.sync({alter: true, force: false})
+    User.sync({alter: true, force: false})
+    Data.sync({alter: true, force: false})
+    Genre.sync({alter: true, force: false})
 };
 
 app.use(userRouter);
+app.use(dataRouter);
 app.use(bookRouter);
 app.use(genreRouter);
 
@@ -46,5 +54,15 @@ app.listen(port, () => {
 // 200 is the status code for a successful get request
 // 401 Not authorised
 
-// TO-DO
-// Add: UPDATE and DELETE routes to Users
+// =====TO-DO=====
+// Figure out data storage table and its relationship to users and books
+
+// Data Storage needs foreign keys of:
+// user ID in Users & Book ID? in Books
+
+// Genre hasMany Book
+// Book belongsTo genre: GenreId is foreign key from Genre table
+// Book belongsTo Author: AuthorId is foreign key from authors table
+
+// User has many books through data storage? 
+// Book belongs to many User through data storage?
